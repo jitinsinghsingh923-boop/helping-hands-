@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Request Help</title>
+
+    <link rel="stylesheet" href="form.css">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Help Request Form</h1>
+
+        <p>Please fill the details correctly.</p>
+
+        <form id="helpForm">
+
+            <!-- Name -->
+            <div class="input-box">
+
+                <label>Full Name</label>
+
+                <input type="text" id="name" placeholder="Enter your full name" required>
+
+            </div>
+
+            <!-- Mobile -->
+            <div class="input-box">
+
+                <label>Mobile Number</label>
+
+                <input type="tel" id="phone" placeholder="9876543210" required>
+
+            </div>
+
+            <!-- Email -->
+            <div class="input-box">
+
+                <label>Email (Optional)</label>
+
+                <input type="email" id="email" placeholder="example@gmail.com">
+
+            </div>
+
+            <!-- Gender -->
+            <div class="input-box">
+
+                <label>Gender</label>
+
+                <select id="gender" required>
+
+                    <option value="">Select</option>
+
+                    <option>Male</option>
+
+                    <option>Female</option>
+
+                    <option>Other</option>
+
+                </select>
+
+            </div>
+
+            <!-- Age -->
+            <div class="input-box">
+
+                <label>Age</label>
+
+                <input type="number" id="age">
+
+            </div>
+
+            <!-- State -->
+            <div class="input-box">
+
+                <label>State</label>
+
+                <input type="text" id="state">
+
+            </div>
+
+            <!-- City -->
+            <div class="input-box">
+
+                <label>City</label>
+
+                <input type="text" id="city">
+
+            </div>
+
+            <!-- Address -->
+            <div class="input-box">
+
+                <label>Complete Address</label>
+
+                <textarea id="address" rows="3"></textarea>
+
+            </div>
+
+            <!-- Category -->
+            <div class="input-box">
+
+                <label>Problem Category</label>
+
+                <select id="category" required>
+
+                    <option value="">Select Category</option>
+
+                    <option>Medical Help</option>
+
+                    <option>Financial Help</option>
+
+                    <option>Education</option>
+
+                    <option>Hospital Admission</option>
+
+                    <option>Blood Requirement</option>
+
+                    <option>Job Related</option>
+
+                    <option>Women Safety</option>
+
+                    <option>Senior Citizen Help</option>
+
+                    <option>Emergency</option>
+
+                    <option>Other</option>
+
+                </select>
+
+            </div>
+
+            <!-- Urgency -->
+            <div class="input-box">
+
+                <label>Urgency Level</label>
+
+                <select id="urgency" required>
+
+                    <option value="">Select</option>
+
+                    <option>Low</option>
+
+                    <option>Medium</option>
+
+                    <option>High</option>
+
+                    <option>Emergency</option>
+
+                </select>
+
+            </div>
+
+            <!-- Description -->
+            <div class="input-box">
+
+                <label>Describe Your Problem</label>
+
+                <textarea id="description"
+                    rows="6"
+                    placeholder="Explain your situation in detail..."
+                    required></textarea>
+
+            </div>
+
+            <!-- File -->
+            <div class="input-box">
+
+                <label>Upload Documents</label>
+
+                <input type="file" id="document">
+
+            </div>
+
+            <!-- Contact -->
+            <div class="input-box">
+
+                <label>Preferred Contact Method</label>
+
+                <select id="contactMethod">
+
+                    <option>Phone Call</option>
+
+                    <option>WhatsApp</option>
+
+                    <option>Email</option>
+
+                </select>
+
+            </div>
+
+            <!-- Time -->
+            <div class="input-box">
+
+                <label>Best Time to Contact</label>
+
+                <input type="time" id="contactTime">
+
+            </div>
+
+            <!-- Declaration -->
+            <div class="input-box" style="grid-column:1/3;">
+
+                <label>
+
+                    <input type="checkbox" required>
+
+                    I confirm that the information provided is true.
+
+                </label>
+
+            </div>
+
+            <!-- Submit -->
+            <button type="submit" class="submit">
+
+                Submit Request
+
+            </button>
+
+        </form>
+
+    </div>
+
+</body>
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+getFirestore,
+collection,
+addDoc,
+serverTimestamp
+}
+
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+// Firebase Config
+const firebaseConfig = {
+
+apiKey: "YOUR_API_KEY",
+authDomain: "helping-hands-bb28c.firebaseapp.com",
+projectId: "helping-hands-bb28c",
+storageBucket: "helping-hands-bb28c.firebasestorage.app",
+messagingSenderId: "613207431023",
+appId: "1:613207431023:web:e518be52ef4a6e825d7a9a"
+
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
+
+// Form
+const form = document.getElementById("helpForm");
+
+form.addEventListener("submit", async(e)=>{
+
+e.preventDefault();
+
+try{
+
+await addDoc(collection(db,"HelpRequests"),{
+
+name:document.getElementById("name").value,
+
+phone:document.getElementById("phone").value,
+
+email:document.getElementById("email").value,
+
+city:document.getElementById("city").value,
+
+category:document.getElementById("category").value,
+
+urgency:document.getElementById("urgency").value,
+
+description:document.getElementById("description").value,
+
+status:"Pending",
+
+createdAt:serverTimestamp()
+
+});
+
+alert("Request Submitted Successfully!");
+
+window.location.href="thankyou.html";
+
+}
+
+catch(error){
+
+alert(error.message);
+
+}
+
+});
+
+</script>
+
+</html>
