@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Request Submitted</title>
+
+<link rel="stylesheet" href="thankyou.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card">
+
+<i class="fa-solid fa-circle-check"></i>
+
+<h1>Request Submitted Successfully</h1>
+
+<p>
+
+Thank you for reaching out.
+
+Your request has been received successfully.
+
+Our team will carefully review your request.
+
+If additional information is required, we will contact you using the phone number you provided.
+
+</p>
+
+<div class="request-id">
+
+<strong>Request ID:</strong>
+
+<span id="requestId"></span>
+
+</div>
+
+<div class="buttons">
+
+<a href="index.html" class="home-btn">
+
+<i class="fa-solid fa-house"></i>
+
+Back to Home
+
+</a>
+
+<a href="problem-form.html" class="new-btn">
+
+Submit Another Request
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const id = "PG-" + new Date().getFullYear() + "-" +
+Math.floor(100000 + Math.random() * 900000);
+
+document.getElementById("requestId").innerHTML = id;
+
+</script>
+
+</body>
+</html>
